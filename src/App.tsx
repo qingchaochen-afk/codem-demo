@@ -103,8 +103,8 @@ export default function Home() {
     let completionTimer: number | undefined;
     const timer = window.setInterval(() => {
       setProgress((current) => {
-        const next = Math.min(current + 4, 92); // BUG-03: 上限被硬编码为 92
-        if (next === 92) {
+        const next = Math.min(current + 4, 100); // BUG-03 fixed: 进度上限改为 100，完成时填满
+        if (next === 100) {
           window.clearInterval(timer);
           completionTimer = window.setTimeout(() => {
             setDemoComplete(true);
