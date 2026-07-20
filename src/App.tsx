@@ -88,7 +88,7 @@ export default function Home() {
 
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
-      if (event.altKey && event.key.toLowerCase() === "k") { // BUG-06: 误用 altKey
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") { // BUG-06 fixed: macOS ⌘ / Win/Linux Ctrl 均可触发
         event.preventDefault();
         setCommandOpen(true);
       }
