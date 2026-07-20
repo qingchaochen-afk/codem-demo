@@ -136,11 +136,15 @@ export default function Home() {
   };
 
   const pauseDemo = () => {
-    // BUG-05: 暂停错误地执行了完整重置,进度与日志全部清零
+    // BUG-05 fixed: 暂停只停止 timer 并标记 paused，保留当前 progress 不动
     setDemoRunning(false);
+    setDemoPaused(true);
+  };
+
+  const resumeDemo = () => {
+    // BUG-05 fixed: 从原进度继续，不重置 progress
+    setDemoRunning(true);
     setDemoPaused(false);
-    setProgress(0);
-    setDemoComplete(false);
   };
 
   const selectWorkflow = (index: number) => {
@@ -217,7 +221,7 @@ export default function Home() {
                 <p className={progress >= 72 ? "done" : ""}><i>03</i><span>生成补丁并运行 28 项测试</span><b>✓</b></p>
               </div>
               <div className="run-progress"><div><span>SANDBOX PROGRESS</span><b>{progress}%</b></div><i><b style={{ width: `${progress}%` }} /></i></div>
-              <div className="run-actions"><button type="button" onClick={pauseDemo}>{demoRunning ? "暂停" : demoPaused ? "继续" : "重置"}</button><button type="button" onClick={startDemo}>{demoRunning ? "重新运行" : "运行任务"} <span>→</span></button></div>
+              <div className="run-actions"><button type="button" onClick={demoPaused ? resumeDemo : demoRunning ? pauseDemo : startDemo}>{demoRunning ? "暂停" : demoPaused ? "继续" : "重置"}</button><button type="button" onClick={startDemo}>{demoRunning ? "重新运行" : "运行任务"} <span>→</span></button></div>
             </aside>
           </div>
           <div className="console-ticker"><span>PATCH <b>+18 −6</b></span><span>TESTS <b>28/28</b></span><span>FILES <b>03</b></span><span>ELAPSED <b>08:42</b></span></div>
