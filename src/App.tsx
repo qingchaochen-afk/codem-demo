@@ -136,13 +136,13 @@ export default function Home() {
   };
 
   const pauseDemo = () => {
-    // BUG-05 fixed: 暂停只停止 timer 并标记 paused，保留当前 progress 不动
+    // BUG-05: 暂停只停止 timer 并标记 paused，保留当前 progress 不动
     setDemoRunning(false);
     setDemoPaused(true);
   };
 
   const resumeDemo = () => {
-    // BUG-05 fixed: 从原进度继续，不重置 progress
+    // BUG-05: 从原进度继续，不重置 progress
     setDemoRunning(true);
     setDemoPaused(false);
   };
